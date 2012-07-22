@@ -1,0 +1,26 @@
+- @user = User.find_by_id(@news.user_id)
+%h1
+  "#{@news.title}" by #{mail_to @user.email, @user.username}
+#content
+  #full_description
+    = @news.full
+  = button_to "Edit", edit_news_path(@news)
+  = link_to "Back to all News", news_index_path
+  #comments
+    %h2 Comments
+    - @news.comments.each do |comment|
+      - @user_comment = User.find_by_id(comment.user_id)
+      %p
+        By: #{@user_comment.username}
+      #comment
+        = comment.body
+      %p= button_to "Delete", [@news, comment], :confirm => "Are you shure?", :method => :delete
+    - if user_signed_in?
+      = form_for [@news, Comment.new] do |form|
+        = form.label :username, "Name: "
+        = form.label :username, current_user.username
+        %br/
+        = form.hidden_field(:user_id, :value => @current_user.id)
+        = form.text_area :body
+        %br/
+        = form.submit
