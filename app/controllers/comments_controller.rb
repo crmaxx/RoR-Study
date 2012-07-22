@@ -1,7 +1,12 @@
 class CommentsController < ApplicationController
 	before_filter do
-		@news = News.find_by_id(params[:news_id])
+		@news = current_user.news.find_by_id(params[:news_id])
 	end
+
+	#def new
+  	#	@news = Subdomain.new(:user => @user)
+  	#	respond_with(@news)
+  	#end
 
 	def create
 		@news.comments.create(params[:comment])

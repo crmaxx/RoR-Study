@@ -1,5 +1,7 @@
 NewsSite::Application.routes.draw do
 
+  devise_for :users
+
   resources :news do
     post 'create'
     put 'update'

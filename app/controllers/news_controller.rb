@@ -1,5 +1,5 @@
 class NewsController < ApplicationController
-	respond_to :html, :xml
+	respond_to :html, :atom
 
 	def index
 		@news = News.order("created_at desc")
@@ -7,33 +7,33 @@ class NewsController < ApplicationController
 	end
 
 	def show
-		@news = News.find_by_id(params[:id])
+		@news  = current_user.news.find_by_id(params[:id])
 		respond_with @news
 	end
 
 	def new
-		@news = News.new
+		@news  = current_user.news.build(params[:news])
 		respond_with @news
 	end
 
 	def create
-		@news = News.new(params[:news])
+		@news  = current_user.news.build(params[:news])
 		if @news.save
-			flash[:notice] = "News successeful created"
-			redirect_to news_index_path 
-		else
-			flash[:alert] = "Wrong!!!"
-			render "new"
-		end		
+      		flash[:notice] = "News created!"
+      		redirect_to news_index_path	
+    	else
+      		render 'new'
+    	end
+			
 	end
 
 	def edit
-		@news = News.find_by_id(params[:id])
+		@news = current_user.news.find_by_id(params[:id])
 		respond_with @news
 	end
 
 	def update
-		@news = News.find_by_id(params[:id])
+		@news = current_user.news.find_by_id(params[:id])
 		if @news.update_attributes(params[:news])
 			flash[:notice] = "News successeful updated"
 			redirect_to news_index_path 
@@ -45,7 +45,7 @@ class NewsController < ApplicationController
 	end
 
 	def destroy
-		@news = News.find_by_id(params[:id])
+		@news = current_user.news.find_by_id(params[:id])
 		@news.destroy
 		flash[:notice] = "News successeful deleted"
 		respond_with(@news)
