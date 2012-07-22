@@ -5,4 +5,22 @@
 	</div>
 	<%= button_to "Edit", edit_news_path(@news) %>
 	<%= link_to "Back to all News", news_index_path %>
+	<div id="comments">
+		<h2>Comments</h2>
+		<% @news.comments.each do |comment| %>
+			<p>By: <%= comment.user_id %></p>
+			<div id="comment">
+				<%= comment.body %>
+			</div>
+			<p><%= button_to "Delete", [@news, comment], :confirm => "Are you shure?", :method => :delete %></p>
+		<% end %>
+		<%= form_for [@news, Comment.new] do |form| %>
+			<%= form.label :user_id, "Name" %><br />
+			<%= form.label :user_id, "Name" %><br />
+
+			<%= form.text_area :body %><br />
+			<%= form.submit %>
+		<% end %>
+	</div>
+
 </div>

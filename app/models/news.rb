@@ -1,4 +1,6 @@
 class News < ActiveRecord::Base
-  attr_accessible :description, :full, :title
+  has_many :comments
+
+  attr_accessible :description, :full, :title, :user_id
   validates_presence_of :description, :full, :title
 end
