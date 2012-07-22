@@ -1,0 +1,11 @@
+<h1> List of all News </h1>
+<% @news.each do |news| %>
+	<h2><%= link_to news.title, news %></h2>
+	<div id="content">
+		<%= news.description %>
+		<%= link_to "Edit", [:edit, news] %>
+		<%= button_to "Delete", news, :confirm => "Are you shure?", :method => :delete %>
+	</div>
+<% end %>
+<hr/>
+<%= link_to "Add News", new_news_path %>

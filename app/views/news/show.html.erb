@@ -1,0 +1,8 @@
+<h1><%= @news.title %></h1>
+<div id="content">
+	<div id="full description">
+		<%= @news.full %>
+	</div>
+	<%= button_to "Edit", edit_news_path(@news) %>
+	<%= link_to "Back to all News", news_index_path %>
+</div>
