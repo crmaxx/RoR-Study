@@ -5,7 +5,7 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-    = auto_discovery_link_tag(:tag, news_index_path(:atom))
+    = auto_discovery_link_tag(:rss, 'http://localhost:3000')
   %body
     %p.notice{:style => "color: green"}= notice
     %p.alert{:style => "color: red"}= alert

@@ -1,9 +1,12 @@
 class NewsController < ApplicationController
-	respond_to :html, :atom
+	respond_to :html, :rss
 
 	def index
 		@news = News.order("created_at desc")
-		respond_with @news		
+		respond_to do |format|
+			format.html
+   			format.rss { render :layout => false }
+		end		
 	end
 
 	def show
